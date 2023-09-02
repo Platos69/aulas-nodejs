@@ -1,4 +1,6 @@
 /*Comandos essenciais: 
+Para acessar com todas as permissões: sudo mysql -h localhost -u root -p
+
 Criar banco de dados: CREATE DATABASE NOME_BANCO;
 
 Mostrar bancos de dados: SHOW DATABASES;
