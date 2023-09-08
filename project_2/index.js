@@ -5,7 +5,7 @@ const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
 const Post = require('./models/Post')
 
-//config
+/*config*/
 //template engine
 app.engine(
   'handlebars',
@@ -17,7 +17,7 @@ app.engine(
     },
   }),
 ),
-  app.set('view engine', 'handlebars')
+app.set('view engine', 'handlebars')
 
 //body Parser
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -29,15 +29,19 @@ const sequelize = new Sequelize('teste', 'root', '29052007', {
   dialect: 'mysql',
 })
 
-//rotas
+/*rotas*/
 app.get('/', function (req, res) {
-  Post.findAll().then(function (posts) {
-    res.render('home', { posts: posts })
-  })
+    res.render('home')
 })
 
 app.get('/cad', function (req, res) {
   res.render('formulario')
+})
+
+app.get('/posts', function (req, res) {
+  Post.findAll().then(function (posts) {
+  res.render('posts', { posts: posts })
+  })
 })
 
 /*.post para ser linkado ao tipo do meu formulario que é tipo post*/
@@ -50,15 +54,18 @@ app.post('/add', function (req, res) {
       res.redirect('/')
     })
     .catch(function (erro) {
-      res.send(`Erro na criação, pelo seguinte erro: ${erro}`)
+      res.send(`Erro na criação! Error: ${erro}
+      <br><a href="/"><button>Voltar para o inicio</button></a>`)
     })
 })
 
 app.get('/deletar/:id', function (req, res) {
     Post.destroy({ where: { 'id': req.params.id } }).then(function (erro) {
-      res.send(`Post deletado com sucesso`)
+      res.send(`Post deletado com sucesso
+      <br><a href="/posts"><button>Voltar para o inicio</button></a>`)
     }).catch(function (erro) {
-    res.send('Está mensagem não pode ser deletada')
+    res.send(`Está mensagem não pode ser deletada!\n Error: ${erro}
+    <br><a href="/posts"><button>Voltar para o inicio</button></a>`)
     })  
   })
 

@@ -1,0 +1,12 @@
+
+<h1>Lista de posts:<br><a href="/"><button>Voltar para o inicio</button></a></h1>
+
+{{#each posts}}
+
+  <h1>Titulo: {{titulo}}</h1>
+  <h2>Conteudo: {{conteudo}}</h2>
+  <p>Identificação: {{id}} </p>
+  <a href="/deletar/{{id}}"><button>Deletar</button></a>
+  <hr>
+
+{{/each}}
